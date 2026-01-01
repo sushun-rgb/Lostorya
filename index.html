@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG LOSTORYA - SLASHER EDITION</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>LOSTORYA: SLASHER</h1>
+
+    <div class="char-info">
+        <div>
+            <label>PERSONAGEM</label>
+            <input type="text" placeholder="Nome do Personagem">
+        </div>
+        <div>
+            <label>JOGADOR</label>
+            <input type="text" placeholder="Seu nome">
+        </div>
+    </div>
+
+    <div class="dice-shelf" id="topo-dados"></div>
+
+    <div class="status-grid">
+        <div class="status-box"><label>INTEGRIDADE (HP)</label><input type="text" value="20/20"></div>
+        <div class="status-box"><label>SANIDADE (SAN)</label><input type="text" value="20/20"></div>
+        <div class="status-box"><label>ESCUDO (PROT)</label><input type="number" value="0"></div>
+        <div class="status-box"><label>BLOQUEIO (RD)</label><input type="number" value="0"></div>
+    </div>
+
+    <div class="extra-systems">
+        <div class="system-card">
+            <label>PONTO DE DETERMINAÇÃO</label>
+            <input type="text" value="0/0" style="width: 90%; font-size: 1.5em; text-align: center; background: transparent; border: none; color: white;">
+        </div>
+        <div class="system-card">
+            <label>GOTAS DE SANGUE (LIMITE 8)</label>
+            <div id="gotas-area" style="display: flex; gap: 5px; margin: 10px 0;"></div>
+            <button class="btn-add" onclick="mudarQtdGotas(1)">+</button>
+            <button class="btn-add" onclick="mudarQtdGotas(-1)">-</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="atributos-section">
+            <div class="atrib-item"><label>FOR</label><input type="number" value="0"></div>
+            <div class="atrib-item"><label>AGI</label><input type="number" value="0"></div>
+            <div class="atrib-item"><label>INT</label><input type="number" value="0"></div>
+            <div class="atrib-item"><label>PRE</label><input type="number" value="0"></div>
+            <div class="atrib-item"><label>VIG</label><input type="number" value="0"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ARMAS</h2>
+        <div id="lista-armas"></div>
+        <button class="btn-add" onclick="addItem('lista-armas', 'Machado', 12)">+ Nova Arma</button>
+    </div>
+
+    <div class="section">
+        <h2>PERÍCIAS</h2>
+        <div id="lista-pericias"></div>
+        <button class="btn-add" onclick="addItem('lista-pericias', 'Furtividade', 20)">+ Nova Perícia</button>
+    </div>
+
+    <div class="history-panel">
+        <span class="clear-hist" onclick="limparHistorico()">[LIMPAR X]</span>
+        <strong>HISTÓRICO:</strong>
+        <div id="log-dados"></div>
+    </div>
+</div>
+
+<div class="fatalidade-box" id="caixa-resultado">
+    <span class="close-res" onclick="fecharResultado()">X</span>
+    <label id="label-res">RESULTADO</label>
+    <div id="res-grande">-</div>
+    <div id="res-detalhe">...</div>
+</div>
+
+<audio id="diceSound" src="https://www.soundjay.com/misc/sounds/dice-roll-1.mp3"></audio>
+
+<script src="script.js"></script>
+
+</body>
+</html>

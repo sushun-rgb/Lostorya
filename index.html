@@ -3,86 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPG LOSTORYA - SLASHER EDITION</title>
-    <link rel="stylesheet" href="estilo.css">
+    <title>Painel de RPG - Dados e Status</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <h1>LOSTORYA: SLASHER</h1>
+    <div class="container">
+        <header class="char-header">
+            <div class="input-group">
+                <label>Personagem:</label>
+                <input type="text" placeholder="Nome do Personagem" value="Arun, o Bravo">
+            </div>
+            <div class="input-group">
+                <label>Jogador:</label>
+                <input type="text" placeholder="Nome do Jogador">
+            </div>
+        </header>
 
-    <div class="char-info">
-        <div>
-            <label>PERSONAGEM</label>
-            <input type="text" placeholder="Nome do Personagem">
-        </div>
-        <div>
-            <label>JOGADOR</label>
-            <input type="text" placeholder="Seu nome">
-        </div>
+        <main class="dashboard">
+            <section class="section-box">
+                <h3>Status de Sobrevivência</h3>
+                <div class="grid-stats">
+                    <div class="stat-card hp"><label>HP</label><input type="number" value="100"></div>
+                    <div class="stat-card sanity"><label>Sanidade</label><input type="number" value="100"></div>
+                    <div class="stat-card def"><label>Defesa</label><input type="number" value="10"></div>
+                    <div class="stat-card block"><label>Bloqueio</label><input type="number" value="0"></div>
+                    <div class="stat-card res"><label>Determinação</label><input type="number" value="0"></div>
+                </div>
+            </section>
+
+            <section class="section-box">
+                <h3>Atributos Base</h3>
+                <div class="grid-attributes">
+                    <div class="attr-card"><span>FORÇA</span><input type="number" value="0"></div>
+                    <div class="attr-card"><span>AGILIDADE</span><input type="number" value="0"></div>
+                    <div class="attr-card"><span>INTELECTO</span><input type="number" value="0"></div>
+                    <div class="attr-card"><span>PRESENÇA</span><input type="number" value="0"></div>
+                    <div class="attr-card"><span>VIGOR</span><input type="number" value="0"></div>
+                </div>
+            </section>
+
+            <section class="section-box dice-roller">
+                <h3>Mecânica de Dados (Pega o Maior)</h3>
+                <div class="dice-grid">
+                    <div class="dice-control">
+                        <span>D4</span>
+                        <input type="number" id="qty-d4" value="1" min="1">
+                        <button onclick="rollDice(4)">Rolar</button>
+                    </div>
+                    <div class="dice-control">
+                        <span>D8</span>
+                        <input type="number" id="qty-d8" value="1" min="1">
+                        <button onclick="rollDice(8)">Rolar</button>
+                    </div>
+                    <div class="dice-control">
+                        <span>D12</span>
+                        <input type="number" id="qty-d12" value="1" min="1">
+                        <button onclick="rollDice(12)">Rolar</button>
+                    </div>
+                    <div class="dice-control">
+                        <span>D15</span>
+                        <input type="number" id="qty-d15" value="1" min="1">
+                        <button onclick="rollDice(15)">Rolar</button>
+                    </div>
+                    <div class="dice-control">
+                        <span>D20</span>
+                        <input type="number" id="qty-d20" value="1" min="1">
+                        <button onclick="rollDice(20)">Rolar</button>
+                    </div>
+                    <div class="dice-control">
+                        <span>D100</span>
+                        <input type="number" id="qty-d100" value="1" min="1">
+                        <button onclick="rollDice(100)">Rolar</button>
+                    </div>
+                </div>
+
+                <div id="result-display" class="result-area">
+                    Aguardando rolagem...
+                </div>
+            </section>
+        </main>
     </div>
 
-    <div class="dice-shelf" id="topo-dados"></div>
-
-    <div class="status-grid">
-        <div class="status-box"><label>INTEGRIDADE (HP)</label><input type="text" value="20/20"></div>
-        <div class="status-box"><label>SANIDADE (SAN)</label><input type="text" value="20/20"></div>
-        <div class="status-box"><label>ESCUDO (PROT)</label><input type="number" value="0"></div>
-        <div class="status-box"><label>BLOQUEIO (RD)</label><input type="number" value="0"></div>
-    </div>
-
-    <div class="extra-systems">
-        <div class="system-card">
-            <label>PONTO DE DETERMINAÇÃO</label>
-            <input type="text" value="0/0" style="width: 90%; font-size: 1.5em; text-align: center; background: transparent; border: none; color: white;">
-        </div>
-        <div class="system-card">
-            <label>GOTAS DE SANGUE (LIMITE 8)</label>
-            <div id="gotas-area" style="display: flex; gap: 5px; margin: 10px 0;"></div>
-            <button class="btn-add" onclick="mudarQtdGotas(1)">+</button>
-            <button class="btn-add" onclick="mudarQtdGotas(-1)">-</button>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="atributos-section">
-            <div class="atrib-item"><label>FOR</label><input type="number" value="0"></div>
-            <div class="atrib-item"><label>AGI</label><input type="number" value="0"></div>
-            <div class="atrib-item"><label>INT</label><input type="number" value="0"></div>
-            <div class="atrib-item"><label>PRE</label><input type="number" value="0"></div>
-            <div class="atrib-item"><label>VIG</label><input type="number" value="0"></div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>ARMAS</h2>
-        <div id="lista-armas"></div>
-        <button class="btn-add" onclick="addItem('lista-armas', 'Machado', 12)">+ Nova Arma</button>
-    </div>
-
-    <div class="section">
-        <h2>PERÍCIAS</h2>
-        <div id="lista-pericias"></div>
-        <button class="btn-add" onclick="addItem('lista-pericias', 'Furtividade', 20)">+ Nova Perícia</button>
-    </div>
-
-    <div class="history-panel">
-        <span class="clear-hist" onclick="limparHistorico()">[LIMPAR X]</span>
-        <strong>HISTÓRICO:</strong>
-        <div id="log-dados"></div>
-    </div>
-</div>
-
-<div class="fatalidade-box" id="caixa-resultado">
-    <span class="close-res" onclick="fecharResultado()">X</span>
-    <label id="label-res">RESULTADO</label>
-    <div id="res-grande">-</div>
-    <div id="res-detalhe">...</div>
-</div>
-
-<audio id="diceSound" src="https://www.soundjay.com/misc/sounds/dice-roll-1.mp3"></audio>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
